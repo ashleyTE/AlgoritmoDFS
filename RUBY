@@ -1,0 +1,63 @@
+class AlgoritmoDFS
+  #Función inicializar
+ 
+  def initialize(lista)
+    #se crean variables de instancia
+		@lista = lista
+		@visitado = []
+  end
+  #funcion para busqueda
+  def busqueda(primerValor)
+    #primerNum es el nodo base
+    pila = [primerValor]
+		@visitado << primerValor
+		p primerValor
+    while !pila.empty?
+      #obtener el ultimo elemento
+			actual = pila.last
+			hijos = @lista[actual]
+			hijo = no_visitado(hijos)
+			if hijo
+				pila << hijo
+				@visitado << hijo
+				p hijo
+			else
+				pila.pop
+			end
+		end
+	end
+
+  #funcion que se recorra los nodos no visitados
+	def no_visitado(array)
+    array.each do |valor|
+      #condicion: si el array ya tiene el valor, no #lo incluye
+			unless @visitado.include?(valor)
+				return valor
+				break
+			end
+		end
+		nil
+	end
+
+end
+
+lista = {
+  "A" => ["B","C","D"],
+  "B" => ["A","E","F","G"],
+  "C" => ["A","K","L"],
+  "D" => ["A","H"],
+  "E" => ["B"],
+  "F" => ["B","I","J"],
+  "G" => ["B","J"],
+  "H" => ["D","M"],
+  "I" => ["F","N"],
+  "J" => ["F","G","N"],
+  "K" => ["C"],
+  "L" => ["C","M","O"],
+  "M" => ["H","L"],
+  "N" => ["I","J"],
+  "O" => ["L"]
+ }
+
+ dfs = AlgoritmoDFS.new(lista)
+ dfs.busqueda("A")
