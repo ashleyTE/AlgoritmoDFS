@@ -1,0 +1,59 @@
+
+<?php
+class GraficoDFS 
+{
+    protected $longitud = 0;
+    /* se crean las variables arreglo donde se almacenara la matriz de adyacencia y en visitado se almacenara los nodos que se vayana visitando*/
+    protected $arreglo = array();
+    protected $visitado = array();
+ 
+    public function __construct()
+    {
+      /*
+      Se tendra un array por cada vertice inscrito,se usara el ejemplo de la asignacion del proyecto.
+      En este caso A es 0 , B es 1 , C es 2 ,D es 3, etc. 
+      */
+        $this->arreglo = array(
+            array(0,1,1,1,0,0,0,0,0,0,0,0,0,0,0),
+            array(1,0,0,0,1,1,1,0,0,0,0,0,0,0,0),
+            array(1,0,0,0,0,0,0,0,0,0,1,1,0,0,0),
+            array(1,0,0,0,0,0,0,1,0,0,0,0,0,0,0),
+            array(0,1,0,0,0,0,0,0,0,0,0,0,0,0,0),
+            array(0,1,0,0,0,0,0,0,1,1,0,0,0,0,0),
+            array(0,1,0,0,0,0,0,0,0,1,0,0,0,0,0),
+            array(0,0,0,1,0,0,0,0,0,0,0,0,1,0,0),
+            array(0,0,0,0,0,1,0,0,0,0,0,0,0,1,0),
+            array(0,0,0,0,0,1,1,0,0,0,0,0,0,1,0),
+            array(0,0,1,0,0,0,0,0,0,0,0,0,0,0,0),
+            array(0,0,1,0,0,0,0,0,0,0,0,0,1,0,1),
+            array(0,0,0,0,0,0,0,1,0,0,0,1,0,0,0),
+            array(0,0,0,0,0,0,0,0,1,1,0,0,0,0,0),
+            array(0,0,0,0,0,0,0,0,0,0,0,1,0,0,0),
+        );
+ 
+        $this->longitud = count($this->arreglo);
+        $this->primer_visitado();
+    }
+ 
+    protected function primer_visitado()
+    {
+        for ($i = 0; $i < $this->longitud; $i++) {
+            $this->visitado[$i] = 0;
+        }
+    }
+ 
+    public function AlgoritmoDfs($nodo)
+    {
+        $this->visitado[$nodo] = 1;
+         echo $nodo . "-> ";
+ 
+        for ($i=0; $i < $this->longitud; $i++) {
+            if ($this->arreglo[$nodo][$i] == 1 && !$this->visitado[$i]) {
+                $this->AlgoritmoDfs($i);
+            }
+        }
+    }
+}
+
+$n = new GraficoDFS();
+$n->AlgoritmoDfs(0);//Declaramos el nodo inicial 0 que en el grafico es "A" al igual que en el codigo de ruby.Ambos llegan al mismo resultado.
